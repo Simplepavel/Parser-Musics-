@@ -33,4 +33,3 @@ class Artist_Track(Base):
     track_id = Column(Integer, ForeignKey("track.id"), primary_key=True)
 
 
-print("Create Model")

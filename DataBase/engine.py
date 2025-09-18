@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from model import Base
+from DataBase.model import Base
 
 
 engine1 = create_engine("sqlite+pysqlite:///DataBase.db", echo=True)
@@ -15,5 +15,3 @@ def create_table():
 def drop_table():
     Base.metadata.drop_all(engine1)
 
-
-print("Create Engine")

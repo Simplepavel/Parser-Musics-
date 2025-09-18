@@ -1,9 +1,10 @@
 from aiogram import Router
-from aiogram.types import Message, FSInputFile
+from aiogram.types import Message
 from FSM.FSM_find import Find_Track_State
 from aiogram.fsm.context import FSMContext
 from aiogram.filters import Command, CommandObject
-
+from DataBase.engine import SessionLocal
+from DataBase.query import get_track, get_artist
 
 router_user = Router()
 
@@ -12,7 +13,13 @@ router_user = Router()
 async def artist_fnd(message: Message, command: CommandObject):
     if (command.args):
         artist_name = command.args
-        await message.answer(artist_name)
+        with SessionLocal() as session:
+            result = get_artist(session, artist_name)
+            tracks = ""
+            for m in result:
+                t = m[0] + '\n'
+                tracks += t
+            await message.answer(f"""There are 5 most popular {artist_name}'s tracks:\n{tracks}""")
     else:
         await message.answer("Введите исполнителя: /artist имя исполнителя")
 
@@ -21,7 +28,11 @@ async def artist_fnd(message: Message, command: CommandObject):
 async def track_fnd(message: Message, command: CommandObject):
     if (command.args):
         track_name = command.args
-        await message.answer(track_name)
+        with SessionLocal() as session:
+            result = get_track(session, track_name)
+            await message.answer(result[0])
+    else:
+        await message.answer("Введите название трека: /track название трека")
 
 
 @router_user.message(Command("search"))
