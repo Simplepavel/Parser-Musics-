@@ -7,9 +7,12 @@
 #include "parsers.hpp"
 #include "windows.h"
 
+
+
+
 int main()
 {
-    setlocale(LC_ALL, "ru_RU.UTF-8");   
+    setlocale(LC_ALL, "ru_RU.UTF-8");
     std::string url1 = "https://rus.hitmotop.com/artists/start/";
     std::string url2 = "https://rus.hitmotop.com/artist/";
 
@@ -34,7 +37,6 @@ int main()
         artists_pager.open("artists_page");
         artist_ids = std::move(prs1.parse(artists_pager));
         artists_pager.close();
-        // std::cout << artist_ids.size() << '\n';
         for (auto j = artist_ids.begin(); j != artist_ids.end(); ++j)
         {
             std::string url = url2 + *j;
@@ -50,9 +52,9 @@ int main()
             {
                 k->download();
             }
-            std::this_thread::sleep_for(std::chrono::seconds(2)); 
+            std::this_thread::sleep_for(std::chrono::seconds(2));
         }
-        counter+=48;
+        counter += 48;
         break;
     }
     return 0;

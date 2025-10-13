@@ -32,7 +32,6 @@ void remove_space(std::string &value)
 
 bool Song::download()
 {
-    
-    std::ofstream file(directory + "/" + artist_title + "-" + title + ".mp3", std::ios::binary); // файл сам закроется
+    std::ofstream file(directory + "\\" + artist_title + "~" + title + ".mp3", std::ios::binary); // файл сам закроется
     return get(file, download_url);
 }

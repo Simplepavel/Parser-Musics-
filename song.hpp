@@ -6,6 +6,7 @@ struct Song
     std::string title;
     std::string artist_title;
     std::string download_url;
+    // const std::string directory = "D:\\Python_AIO\\Parser(Musics)\\DataBase\\Tracks";
     const std::string directory = "Track";
     Song();
     bool download();
